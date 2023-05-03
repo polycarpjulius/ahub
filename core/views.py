@@ -18,6 +18,7 @@ def Create(request):
             last_name=request.POST['last_name'],
             email=request.POST['email'])
         userdate.save()
+        
 
     return render(request,'create.html')
 
