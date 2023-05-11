@@ -1,14 +1,17 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='signin')
 def Home(request):
     userdate = Biodata.objects.all()
     context = {"data":userdate}
     return render(request,'home.html',context)
 
 
+@login_required(login_url='signin')
 def Create(request):
 
     if request.method == 'POST':
@@ -23,6 +26,7 @@ def Create(request):
     return render(request,'create.html')
 
 
+@login_required(login_url='signin')
 def Update(request,id):
     # get user record with pk as id  
     data = get_object_or_404(Biodata, pk=id)
@@ -43,6 +47,8 @@ def Update(request,id):
     }
     return render(request, 'updateform.html', context)
 
+
+@login_required(login_url='signin')
 def Delete(request,id):
     # get object delete and redirect to home page
      data = get_object_or_404(Biodata, pk=id)
